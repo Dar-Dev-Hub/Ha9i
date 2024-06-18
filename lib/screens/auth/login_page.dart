@@ -1,38 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:ha9i/controllers/login_contoller.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  bool _obscureText = true;
-
-  String? _emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-    if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$')
-        .hasMatch(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? _passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-    return null;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final LoginController controller = Get.put(LoginController());
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -59,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text('Please login to access and start legal'),
                 const SizedBox(height: 32),
                 Form(
-                  key: _formKey,
+                  key: controller.formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,9 +49,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        decoration:
-                            const InputDecoration(hintText: 'Enter your email'),
-                        validator: _emailValidator,
+                        decoration: const InputDecoration(hintText: 'Enter your email'),
+                        validator: controller.emailValidator,
                       ),
                       const SizedBox(height: 24),
                       Text(
@@ -81,23 +58,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      TextFormField(
-                        obscureText: _obscureText,
-                        decoration: InputDecoration(
-                          hintText: 'Enter your password',
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                            onPressed: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                          ),
-                        ),
-                        validator: _passwordValidator,
-                      ),
+                      Obx(() => TextFormField(
+                            obscureText: controller.obscureText.value,
+                            decoration: InputDecoration(
+                              hintText: 'Enter your password',
+                              suffixIcon: IconButton(
+                                icon: Icon(controller.obscureText.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility),
+                                onPressed: controller.toggleObscureText,
+                              ),
+                            ),
+                            validator: controller.passwordValidator,
+                          )),
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
@@ -106,8 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           child: const Text(
                             'Forgot password?',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 242, 74, 74)),
+                            style: TextStyle(color: Color.fromARGB(255, 242, 74, 74)),
                           ),
                         ),
                       ),
@@ -115,9 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
-                  },
+                  onPressed: controller.login,
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
@@ -125,8 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: const Text(
                     'Log in',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 255, 255, 255)),
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -137,8 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <TextSpan>[
                       TextSpan(
                         text: 'Sign up',
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 242, 74, 74)),
+                        style: const TextStyle(color: Color.fromARGB(255, 242, 74, 74)),
                         recognizer: TapGestureRecognizer()..onTap = () {},
                       ),
                     ],
