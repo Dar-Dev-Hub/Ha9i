@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ha9i/const/constants.dart';
 
 final ThemeData appTheme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   primarySwatch: Colors.amber,
+  fontFamily: 'Poppins',
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       minimumSize: const Size(double.infinity, 48),
@@ -18,10 +18,18 @@ final ThemeData appTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     fillColor: const Color(0xFFFBFBFB),
     filled: true,
-    border: defaultOutlineInputBorder,
-    enabledBorder: defaultOutlineInputBorder,
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Color.fromARGB(255, 255, 1, 1)),
+    border: OutlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide.none,
+      borderRadius: BorderRadius.circular(8),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Color.fromARGB(255, 255, 1, 1)),
+      borderRadius: BorderRadius.circular(8),
     ),
   ),
 );
+
