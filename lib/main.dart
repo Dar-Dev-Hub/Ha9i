@@ -7,7 +7,7 @@ import 'package:ha9i/theme/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  GetStorage().write('onboarding', false);
+  // GetStorage().write('onboarding', false);
   await GetStorage.init();
   bool onboarding = GetStorage().read('onboarding') ?? false;
   runApp(Ha9i(onboarding: onboarding));
