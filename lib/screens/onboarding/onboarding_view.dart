@@ -17,6 +17,21 @@ class _OnboardingViewState extends State<OnboardingView> {
   final pageController = PageController();
 
   bool isLastPage = false;
+  final storage = GetStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    if (storage.read('onboarding') == true) {
+      // If onboarding has been completed, navigate to GetStarted screen
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const GetStarted()),
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,64 +44,118 @@ class _OnboardingViewState extends State<OnboardingView> {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                      onPressed: () => pageController
-                          .jumpToPage(controller.items.length - 1),
-                      child: const Text("Skip")),
+                  SizedBox(
+                    width: 100, // Adjust width as needed
+                    child: ElevatedButton(
+                      onPressed: () {
+                        pageController.nextPage(
+                          duration: const Duration(
+                              milliseconds: 500), // Increased duration
+                          curve: Curves.ease, // Smooth curve
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero,
+                        ),
+                        backgroundColor: Color.fromARGB(
+                            255, 224, 41, 41), // Background color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 8), // Button padding
+                      ),
+                      child: const Text(
+                        "Next",
+                        style: TextStyle(
+                            color: Color.fromARGB(
+                                255, 255, 255, 255)), // Text color
+                      ),
+                    ),
+                  ),
                   SmoothPageIndicator(
                     controller: pageController,
                     count: controller.items.length,
-                    onDotClicked: (index) => pageController.animateToPage(index,
-                        duration: const Duration(milliseconds: 600),
-                        curve: Curves.easeIn),
+                    onDotClicked: (index) => pageController.animateToPage(
+                      index,
+                      duration: const Duration(milliseconds: 600),
+                      curve: Curves.easeIn,
+                    ),
                     effect: const WormEffect(
+                      dotColor: Color.fromARGB(255, 230, 42, 42),
                       dotHeight: 12,
                       dotWidth: 12,
-                      activeDotColor: primaryColor,
+                      activeDotColor: Colors.white70,
                     ),
                   ),
-                  TextButton(
-                      onPressed: () => pageController.nextPage(
-                          duration: const Duration(milliseconds: 600),
-                          curve: Curves.easeIn),
-                      child: const Text("Next")),
                 ],
               ),
       ),
-      body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 15),
-        child: PageView.builder(
-            onPageChanged: (index) => setState(
-                () => isLastPage = controller.items.length - 1 == index),
-            itemCount: controller.items.length,
-            controller: pageController,
-            itemBuilder: (context, index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(controller.items[index].image),
-                  const SizedBox(height: 15),
-                  Text(
-                    controller.items[index].title,
-                    style: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold),
+      body: Stack(
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            child: PageView.builder(
+              onPageChanged: (index) => setState(
+                  () => isLastPage = controller.items.length - 1 == index),
+              itemCount: controller.items.length,
+              controller: pageController,
+              itemBuilder: (context, index) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(controller.items[index].image),
+                    const SizedBox(height: 15),
+                    Text(
+                      controller.items[index].title,
+                      style: const TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 230, 42, 42)),
+                    ),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      width: 345,
+                      child: Text(
+                        controller.items[index].descriptions,
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 17),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          Positioned(
+              top: 46,
+              right: 0,
+              child: SizedBox(
+                width: 100, // Adjust width as needed
+                child: ElevatedButton(
+                  onPressed: () =>
+                      pageController.jumpToPage(controller.items.length - 1),
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                    backgroundColor:
+                        Color.fromARGB(255, 255, 255, 255), // Background color
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 8), // Button padding
                   ),
-                  const SizedBox(height: 15),
-                  Text(controller.items[index].descriptions,
-                      style: const TextStyle(color: Colors.grey, fontSize: 17),
-                      textAlign: TextAlign.center),
-                ],
-              );
-            }),
+                  child: const Text(
+                    "Skip",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 230, 42, 42),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold), // Text color
+                  ),
+                ),
+              )),
+        ],
       ),
     );
   }
-
-  //Now the problem is when press get started button
-  // after re run the app we see again the onboarding screen
-  // so lets do one time onboarding
-
-  //Get started button
 
   Widget getStarted() {
     return Container(
@@ -97,15 +166,24 @@ class _OnboardingViewState extends State<OnboardingView> {
       width: MediaQuery.of(context).size.width * .9,
       height: 55,
       child: TextButton(
+        style: TextButton.styleFrom(
+          backgroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+        ),
         onPressed: () {
-          GetStorage().write('onboarding', true);
+          storage.write('onboarding', true);
           if (!mounted) return;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const GetStarted()),
           );
         },
-        child: const Text("Get started", style: TextStyle(color: Colors.white)),
+        child: const Text(
+          "Get started",
+          style: TextStyle(color: Color(0xFFF54141)), // Text color
+        ),
       ),
     );
   }
