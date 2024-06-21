@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ha9i/shared/app_widgets/drawer.dart';
-import 'package:ha9i/shared/app_widgets/navbar.dart';
+import 'package:ha9i/shared/global_widgets/drawer.dart';
+import 'package:ha9i/shared/global_widgets/navbar.dart';
 import 'package:ha9i/shared/widgets/lawyer_card.dart';
-import 'package:ha9i/shared/app_widgets/appbar.dart';
+import 'package:ha9i/shared/global_widgets/appbar.dart';
 import 'package:ha9i/shared/widgets/area_of_low_card.dart';
 
 class HomeScreen extends StatefulWidget {
