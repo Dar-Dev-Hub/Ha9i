@@ -6,7 +6,6 @@ class DrawerFb1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Drawer(
       child: Material(
         color: const Color.fromARGB(255, 199, 97, 97),
