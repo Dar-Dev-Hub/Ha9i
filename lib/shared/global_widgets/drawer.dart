@@ -5,6 +5,8 @@ class DrawerFb1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Drawer(
       child: Material(
         color: const Color.fromARGB(255, 199, 97, 97),
@@ -14,58 +16,58 @@ class DrawerFb1 extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 12),
-                  const SizedBox(height: 50),
+                  SizedBox(height: height * 0.05),
+                  SizedBox(height: height * 0.05),
                   MenuItem(
                     text: 'Account Settings',
                     icon: Icons.settings,
                     onClicked: () => selectedItem(context, 0),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'My wallet',
                     icon: Icons.wallet,
                     onClicked: () => selectedItem(context, 1),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'Laws description',
                     icon: Icons.description,
                     onClicked: () => selectedItem(context, 2),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'support team',
                     icon: Icons.support_agent_outlined,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'privacy policy',
                     icon: Icons.privacy_tip,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'support team',
                     icon: Icons.support_agent_outlined,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'English',
                     icon: Icons.language,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'Face ID',
                     icon: Icons.face,
                     onClicked: () => selectedItem(context, 3),
                   ),
-                  const SizedBox(height: 140),
+                  SizedBox(height: height * 0.11),
                   const Divider(color: Colors.white70),
-                  const SizedBox(height: 8),
+                  SizedBox(height: height * 0.01),
                   MenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
