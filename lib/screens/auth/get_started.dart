@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ha9i/screens/auth/login_page.dart';
 
 class GetStarted extends StatelessWidget {
@@ -123,7 +121,7 @@ class GetStarted extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero,
-                                side: const BorderSide(
+                                side: BorderSide(
                                     color: Color.fromARGB(255, 255, 255, 255),
                                     width: 0.8),
                               ),
