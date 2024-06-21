@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final ThemeData appTheme = ThemeData(
+  // useMaterial3: true,
   scaffoldBackgroundColor: Colors.white,
   primarySwatch: Colors.amber,
   fontFamily: 'Poppins',
@@ -32,4 +33,3 @@ final ThemeData appTheme = ThemeData(
     ),
   ),
 );
-
