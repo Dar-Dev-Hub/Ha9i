@@ -58,7 +58,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.zero,
                         ),
-                        backgroundColor: Color.fromARGB(
+                        backgroundColor: const Color.fromARGB(
                             255, 224, 41, 41), // Background color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 12, vertical: 8), // Button padding
@@ -80,10 +80,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                       curve: Curves.easeIn,
                     ),
                     effect: const WormEffect(
-                      dotColor: Color.fromARGB(255, 230, 42, 42),
+                      dotColor: Color.fromARGB(43, 0, 0, 0),
                       dotHeight: 12,
                       dotWidth: 12,
-                      activeDotColor: Colors.white70,
+                      activeDotColor: Color.fromARGB(255, 230, 42, 42),
                     ),
                   ),
                 ],
@@ -126,7 +126,8 @@ class _OnboardingViewState extends State<OnboardingView> {
               },
             ),
           ),
-          Positioned(
+          if (!isLastPage)
+            Positioned(
               top: 46,
               right: 0,
               child: SizedBox(
@@ -138,8 +139,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
-                    backgroundColor:
-                        Color.fromARGB(255, 255, 255, 255), // Background color
+                    backgroundColor: const Color.fromARGB(
+                        255, 255, 255, 255), // Background color
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 8), // Button padding
                   ),
@@ -151,7 +152,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                         fontWeight: FontWeight.bold), // Text color
                   ),
                 ),
-              )),
+              ),
+            ),
         ],
       ),
     );
