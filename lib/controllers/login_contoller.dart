@@ -28,8 +28,9 @@ class LoginController extends GetxController {
   }
 
   void login() {
-    if (formKey.currentState!.validate()) {
-      // Implement login logic here
-    }
+    // if (formKey.currentState!.validate()) {
+    //   // Implement login logic here
+    // }
+    Get.toNamed('/home');
   }
 }
