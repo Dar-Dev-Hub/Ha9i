@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:ha9i/screens/app/home_screen.dart';
 
 class MyNavBar extends StatelessWidget {
-  const MyNavBar({super.key});
+  const MyNavBar({
+    super.key,
+    required this.selectedIndex,
+  });
+
+  final int selectedIndex;
 
   final primaryColor = const Color.fromARGB(255, 255, 255, 255);
   final secondaryColor = const Color(0xff6D28D9);
@@ -27,28 +34,38 @@ class MyNavBar extends StatelessWidget {
               IconBottomBar(
                   text: "Home",
                   icon: Icons.home,
-                  selected: true,
-                  onPressed: () {}),
+                  selected: selectedIndex == 0,
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  }),
               IconBottomBar(
-                  text: "History",
+                  text: "Activity",
                   icon: Icons.history,
-                  selected: false,
-                  onPressed: () {}),
+                  selected: selectedIndex == 1,
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  }),
               IconBottomBar(
-                  text: "Add",
+                  text: "Add case",
                   icon: Icons.add,
-                  selected: false,
-                  onPressed: () {}),
+                  selected: selectedIndex == 2,
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  }),
               IconBottomBar(
                   text: "Chat",
                   icon: Icons.chat_bubble_outline,
-                  selected: false,
-                  onPressed: () {}),
+                  selected: selectedIndex == 3,
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  }),
               IconBottomBar(
-                  text: "Cases",
+                  text: "My Cases",
                   icon: Icons.edit_document,
-                  selected: false,
-                  onPressed: () {})
+                  selected: selectedIndex == 4,
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  }),
             ],
           ),
         ),

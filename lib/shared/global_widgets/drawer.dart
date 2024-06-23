@@ -7,6 +7,12 @@ class DrawerFb1 extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Drawer(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+      ),
       child: Material(
         color: const Color.fromARGB(255, 199, 97, 97),
         child: ListView(
@@ -86,12 +92,12 @@ class DrawerFb1 extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const Scaffold(), // Page 1
+          builder: (context) => const Scaffold(),
         ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const Scaffold(), // Page 2
+          builder: (context) => const Scaffold(),
         ));
         break;
     }
