@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ha9i/shared/global_widgets/drawer.dart';
 import 'package:ha9i/shared/global_widgets/navbar.dart';
 import 'package:ha9i/shared/widgets/lawyer_card.dart';
@@ -9,13 +10,13 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController(viewportFraction: 0.7);
   int _currentPage = 0;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -31,6 +32,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Get.to(() => HomeScreen());
+        break;
+      // Add other cases for different screens
+      default:
+        break;
+    }
   }
 
   @override
@@ -65,13 +81,15 @@ class _HomeScreenState extends State<HomeScreen> {
               height: MediaQuery.of(context).size.height * 0.45,
               child: PageView.builder(
                 controller: _pageController,
-                itemCount: 6,
+                itemCount: 4,
                 itemBuilder: (context, index) {
-                  if (index == 5) {
+                  if (index == 3) {
                     return Transform.scale(
                       scale: _currentPage == index ? 1.0 : 0.85,
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed('/lawyers');
+                        },
                         child: Card(
                           color: Colors.white,
                           elevation: 4,
@@ -97,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       scale: isCenter ? 1.0 : 0.85,
                       child: LawyerCard(
                         name: 'Khaled Ben Abderrahmen',
-                        expertise: index == 0
+                        field: index == 0
                             ? 'Personal status law'
                             : 'Administrative law',
                         experience: '${8 + index} Exp Years',
@@ -156,7 +174,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const MyNavBar(),
+      bottomNavigationBar: MyNavBar(
+        selectedIndex: _selectedIndex,
+      ),
     );
   }
 }
