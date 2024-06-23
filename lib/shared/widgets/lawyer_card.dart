@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class LawyerCard extends StatelessWidget {
   final String name;
-  final String expertise;
+  final String field;
   final String experience;
   final String imageUrl;
 
   const LawyerCard({
     super.key,
     required this.name,
-    required this.expertise,
+    required this.field,
     required this.experience,
     required this.imageUrl,
   });
@@ -29,8 +29,7 @@ class LawyerCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
               child: Image.network(
                 imageUrl,
                 height: height * 0.31,
@@ -52,7 +51,7 @@ class LawyerCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    expertise,
+                    field,
                     style: const TextStyle(fontSize: 12),
                   ),
                   const SizedBox(height: 5),
